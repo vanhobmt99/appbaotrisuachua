@@ -1,0 +1,48 @@
+﻿@using Microsoft.AspNetCore.Http;
+
+<header class="navbar navbar-inverse navbar-fixed-top">
+    <ul class="nav navbar-nav-custom">
+        <li>
+            <a href="javascript:void(0)" onclick="App.sidebar('toggle-sidebar');this.blur();">
+                <i class="fa fa-ellipsis-v fa-fw animation-fadeInRight" id="sidebar-toggle-mini"></i>
+                <i class="fa fa-bars fa-fw animation-fadeInRight" id="sidebar-toggle-full"></i>
+            </a>
+        </li>
+    </ul>
+    <ul class="nav navbar-nav-custom pull-right">
+        <li class="dropdown">
+            <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
+                <i class="gi gi-user"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-right">                                 
+                    <li class="dropdown-header">
+                        <strong>
+                        <i class="fa fa-user"></i> Xin chào ! @User.Identity!.Name @(", "+Context.Session.GetString("HoTen") ?? "")
+                        </strong>
+                    </li>
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#myModalProfile" title="Xem profile">
+                            <i class="fa fa-users fa-fw"></i>
+                            Xem profile
+                        </a>
+                    </li>                    
+                    <li>
+                        <a href="@Url.Action("ChangePass", "Auth")" title="Thay đổi mật khẩu">
+                            <i class="fa fa-pencil-square fa-fw"></i>
+                            Thay đổi mật khẩu
+                        </a>
+                    </li>
+                    <li>
+                    <a href="@Url.Action("LogOut", "Auth")" title="Thoát">
+                            <i class="fa fa-power-off fa-fw"></i>
+                            Thoát
+                        </a>
+                    </li>           
+                    
+                
+            </ul>
+        </li>
+    </ul>
+    <ul class="nav navbar-nav-custom"></ul>
+</header>
+

@@ -1,0 +1,236 @@
+﻿@using System.Collections
+@model CMMSBT.Domain.Donvi
+@{
+    ViewBag.Title = "CMMSBT > Khu vực > Quản lý khu vực";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .error {
+        color: red;
+    }
+</style>
+<aside class="right-side">
+    <section class="content">
+        <div class="row" style="background:#fff;margin-top:-62px;">
+            <div class="col-md-12 text-center" style="background-color:gray;color:green;height:32px;line-height:32px;">
+                <strong>KHU VỰC</strong>
+            </div>
+            <div class="clr-5"></div>
+            @using (Html.BeginForm("Add", "DonVi", FormMethod.Post, new { @id = "Add", @enctype = "multipart/form-data" }))
+            {
+                <div class="col-md-6">
+                    <input type="hidden" id="id" value="@ViewData["id"]"  />
+                    <label class="control-label">Tên đơn vị</label>
+                    <div class="controls">
+                        @Html.TextBoxFor(m => m.Tendonvi, "", new { @id = "Tendonvi", @class = "form-control", @placeholder = "Nhập tên đơn vị" })
+                        <label for="Tendonvi" class="error" style="display:none;"></label>
+                    </div>
+
+                    <div class="controls">
+                        <label class="control-label">Địa Chỉ</label>
+                        @Html.TextBoxFor(m => m.Diachi, "", new { @id = "Diachi", @class = "form-control", @placeholder = "Nhập địa chỉ " })
+                        <label for="DiaChi" class="error" style="display:none;"></label>
+                    </div>
+                    <div class="controls">
+                        <label class="control-label">Tên Giấy Tờ </label>
+                        @Html.TextBoxFor(m => m.Tengiayto, "", new { @id = "Tengiayto", @class = "form-control", @placeholder = "Nhập tên giấy tờ " })
+                        <label for="Tendonvi" class="error" style="display:none;"></label>
+                    </div>
+                    <div class="controls">
+                        <label class="control-label">Số Điện Thoại</label>
+                        @Html.TextBoxFor(m => m.Dienthoai, "", new { @id = "Dienthoai", @class = "form-control", @placeholder = "Nhập số điện thoại " })
+                        <label for="Tendonvi" class="error" style="display:none;"></label>
+                    </div>
+
+                    <div class="controls">
+                        <label class="control-label">Fax</label>
+                        @Html.TextBoxFor(m => m.Fax, "", new { @id = "Fax", @class = "form-control", @placeholder = "Nhập fax " })
+                        <label for="Fax" class="error" style="display:none;"></label>
+                    </div>
+                    <div class="controls">
+                        <label class="control-label">Website</label>
+                        @Html.TextBoxFor(m => m.Website, "", new { @id = "Website", @class = "form-control", @placeholder = "Nhập website " })
+                        <label for="Website" class="error" style="display:none;"></label>
+                    </div>
+                    <div class="controls">
+                        <label class="control-label">Mã số thuế</label>
+                        @Html.TextBoxFor(m => m.Masothue, "", new { @id = "Masothue", @class = "form-control", @placeholder = "Nhập mã số thuế " })
+                        <label for="Masothue" class="error" style="display:none;"></label>
+                    </div>
+                    <div class="controls">
+                        <label class="control-label">Ngân hàng</label>
+                        @Html.TextBoxFor(m => m.Nganhang, "", new { @id = "Nganhang", @class = "form-control", @placeholder = "Nhập ngân hàng " })
+                        <label for="Nganhang" class="error" style="display:none;"></label>
+                    </div>
+                    <div class="controls">
+                        <label class="control-label">Tên giám đốc</label>
+                        @Html.TextBoxFor(m => m.Tengiamdoc, "", new { @id = "Tengiamdoc", @class = "form-control", @placeholder = "Nhập tên giám đốc " })
+                        <label for="Tengiamdoc" class="error" style="display:none;"></label>
+                    </div>
+                    <div class="controls">
+                        <label class="control-label">Phó giám đốc</label>
+                        @Html.TextBoxFor(m => m.Phogiamdoc, "", new { @id = "Phogiamdoc", @class = "form-control", @placeholder = "Nhập phó giám đốc " })
+                        <label for="Phogiamdoc" class="error" style="display:none;"></label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="controls">
+                        <label class="control-label">Phòng kinh doanh</label>
+                        @Html.TextBoxFor(m => m.Phongkinhdoanh, "", new { @id = "Phongkinhdoanh", @class = "form-control", @placeholder = "Nhập phòng kinh doanh " })
+                        <label for="Phongkinhdoanh" class="error" style="display:none;"></label>
+                    </div>
+                    <div class="controls">
+                        <label class="control-label">Phòng hóa đơn</label>
+                        @Html.TextBoxFor(m => m.Phonghoadon, "", new { @id = "Phonghoadon", @class = "form-control", @placeholder = "Nhập phòng hóa đơn " })
+                        <label for="Phonghoadon" class="error" style="display:none;"></label>
+                    </div>
+                    <div class="controls">
+                        <label class="control-label">Email</label>
+                        @Html.TextBoxFor(m => m.Email, "", new { @id = "Email", @class = "form-control", @placeholder = "Nhập email " })
+                        <label for="Email" class="error" style="display:none;"></label>
+                    </div>
+                    <div class="controls">
+                        <label class="control-label">Số</label>
+                        @Html.TextBoxFor(m => m.So, "", new { @id = "So", @class = "form-control", @placeholder = "Nhập số " })
+                        <label for="So" class="error" style="display:none;"></label>
+                    </div>
+
+
+                    <div class="controls">
+                        <label class="control-label">Phòng quản lý mạng</label>
+                        @Html.TextBoxFor(m => m.Phongqlmang, "", new { @id = "Phongqlmang", @class = "form-control", @placeholder = "Nhập phòng quảnlý mạng " })
+                        <label for="Phongqlmang" class="error" style="display:none;"></label>
+                    </div>
+
+                    <div class="controls">
+                        <label class="control-label">Số tài khoản </label>
+                        @Html.TextBoxFor(m => m.Sotaikhoan, "", new { @id = "Sotaikhoan", @class = "form-control", @placeholder = "Nhập số tài khoản " })
+                        <label for="Sotaikhoan" class="error" style="display:none;"></label>
+                    </div>
+
+                    <div class="controls">
+                        <label class="control-label">Phòng kế toán</label>
+                        @Html.TextBoxFor(m => m.Phongketoan, "", new { @id = "Phongketoan", @class = "form-control", @placeholder = "Nhập tên phòng kế toán " })
+                        <label for="Phongketoan" class="error" style="display:none;"></label>
+                    </div>
+
+                    <div class="controls">
+                        <label class="control-label">Tên báo cáo</label>
+                        @Html.TextBoxFor(m => m.Tenbaocao, "", new { @id = "Tenbaocao", @class = "form-control", @placeholder = "Nhập tên báo cáo " })
+                        <label for="Tenbaocao" class="error" style="display:none;"></label>
+                    </div>
+
+                    <div class="controls">
+                        <label class="control-label">Vị trí báo cáo</label>
+                        @Html.TextBoxFor(m => m.Vitribaocao, "", new { @id = "Vitribaocao", @class = "form-control", @placeholder = " Nhập trí báo cáo " })
+                        <label for="Vitribaocao" class="error" style="display:none;"></label>
+                    </div>
+                </div>
+               
+
+                <div class="clr-10"></div>
+                <div class="col-md-12">
+                    <a class="btn  btn-success" title="Quay lại" href="@Url.Action("List","DonVi")">Quay Lại</a>
+                    <button type="button" id="btnAdd" class="btn btn-primary"><i class="fa fa-pencil"></i> Cập nhật</button>
+                  
+
+                </div>
+                <div class="clr-15"></div>
+            }
+        </div>
+    </section>
+</aside>
+<script>
+    $(function () {
+
+        $("#btnAdd").click(function (e) {
+            e.preventDefault();
+            if ($("#Add").valid()) {
+
+                var Madv = $("#id").val();
+                var Tendonvi = $("#Tendonvi").val();
+                var Diachi = $("#Diachi").val();
+                var Tengiayto = $("#Tengiayto").val();
+                var Dienthoai = $("#Dienthoai").val();
+                var Dienthoai = $("#Dienthoai").val();
+                var Fax = $("#Fax").val();
+                var Website = $("#Website").val();
+                var Masothue = $("#Masothue").val();
+                var Masothue = $("#Masothue").val();
+                var Nganhang = $("#Nganhang").val();
+                var Tengiamdoc = $("#Tengiamdoc").val();
+                var Phogiamdoc = $("#Phogiamdoc").val();
+                var Phongkinhdoanh = $("#Phongkinhdoanh").val();
+                var Phonghoadon = $("#Phonghoadon").val();
+                var Email = $("#Email").val();
+                var So = $("#So").val();
+                var Phongqlmang = $("#Phongqlmang").val();
+                var Sotaikhoan = $("#Sotaikhoan").val();
+                var Phongketoan = $("#Phongketoan").val();
+                var Tenbaocao = $("#Tenbaocao").val();
+                var Vitribaocao = $("#Vitribaocao").val();
+
+                var ObjArr = {
+                    Madv : Madv,
+                    Tendonvi: Tendonvi,
+                    Diachi: Diachi,
+                    Tengiayto: Tengiayto,
+                    Dienthoai: Dienthoai,
+                    Fax: Fax,
+                    Website: Website,
+                    Masothue: Masothue,
+                    Nganhang: Nganhang,
+                    Tengiamdoc: Tengiamdoc,
+                    Phogiamdoc: Phogiamdoc,
+                    Phongkinhdoanh: Phongkinhdoanh,
+                    Phonghoadon: Phonghoadon,
+                    Email: Email,
+                    So: So,
+                    Phongqlmang: Phongqlmang,
+                    Sotaikhoan: Sotaikhoan,
+                    Phongketoan: Phongketoan,
+                    Tenbaocao: Tenbaocao,
+                    Vitribaocao: Vitribaocao
+                };
+                PostKhuVuc(ObjArr);
+              
+            }
+        });
+    });
+
+    $(document).ready(function () {
+
+        $("#Add").validate({
+            rules: {
+                Tenkv: "required"
+
+            },
+            messages: {
+                Tenkv: "Trường bắt buộc"
+            }
+        });
+    });
+
+    function PostKhuVuc(ObjArr) {
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("SaveAction", "DonVi")",
+            data: ObjArr,
+            dataType: 'json',
+            success: function (da) {
+                if (da.ResultCode == true) {
+                    window.location.href = '@Url.Action("List", "DonVi")';
+                }
+                else {
+                    alert(da.Message);
+                }
+            },
+            error: function (da) {
+                alert('Lỗi: Vui lòng hãy kiểm tra lại!');
+            }
+
+        });
+    }
+
+</script>
+

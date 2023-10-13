@@ -1,0 +1,32 @@
+
+body{
+		font-family: tahoma;
+		color:black;
+		
+	}
+.note-editable{background-color:white;}
+
+.mulpic_ser{list-style:none;}
+
+.mulpic_ser li{float:left;position:relative;margin:2px 4px;}
+
+.mulpic_ser li span {position:absolute; top:0px ;right:0px;background-color:white;cursor:pointer}
+
+.thumb{width:120px;max-height:100px;}
+
+.select_user{float: right;font-size: 13px; font-family: Arial;}
+
+a.hr_buy:link, a.hr_buy:visited{color: #e91c21; text-decoration: none;font-size:14px;}
+a.hr_buy:hover, a.hr_buy:active{color: #136eb2; text-decoration: none;font-size:14px;}
+.project_table>thead>tr>th{ font-size:13px;color:white;}
+.project_table>thead>tr{background-color:#0069A8;}
+.project_table>tbody>tr>td{ font-size:11px;font-weight:600;}   
+.project_table>tbody>tr>td a{ font-size:11px;font-weight:600;}
+.defaut ul li{ font-size:14px!important;font-weight:500;}
+
+.title{ background-color: #0069a8;}
+.title_project{ font-size:15px;}
+.comment_project{width:100%;} 
+.project_table_title{font-size:16px;width:100%;background-color:#0069A8;padding:3px;}
+.groug_table>thead>tr>th{font-size:14px;color:black;}
+.red{color:red;}

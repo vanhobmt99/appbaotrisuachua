@@ -1,0 +1,102 @@
+﻿@using Microsoft.AspNetCore.Http;
+
+<div id="sidebar" style="background:#016275;">
+    <div id="sidebar-brand" class="themed-background">
+        <a target="_blank" href="@Url.Content("~/Home/Index")" class="sidebar-title">
+            <i class="fa fa-cube"></i> <span class="sidebar-nav-mini-hide"><strong>CMMS BẢO TRÌ</strong></span>
+        </a>
+    </div>
+    <div id="sidebar-scroll">
+        <div class="sidebar-content" style="padding-bottom:100px;">
+            
+            <ul class="sidebar-nav">
+                <li>
+                    <a class="active" href="@Url.Action("Index", "Home")">Thông tin đăng nhập</a>
+                </li>
+                @if (User.Identity!.IsAuthenticated)
+                {
+                    <li>
+                        <a href="#" class="sidebar-nav-menu"><i class="fa fa-chevron-left sidebar-nav-indicator sidebar-nav-mini-hide"></i> <i class="fa fa-users"></i> <span class="sidebar-nav-mini-hide">&nbsp; Hệ thống</span></a>
+                        <ul>
+                            <li>
+                                <a href="@Url.Action("List", "Group")">Người dùng</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("List", "User")">Nhóm người dùng</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" class="sidebar-nav-menu"><i class="fa fa-chevron-left sidebar-nav-indicator sidebar-nav-mini-hide"></i> <i class="fa fa-server"></i> <span class="sidebar-nav-mini-hide">&nbsp; Danh mục</span></a>
+                        <ul>
+                            <li>
+                                <a href="@Url.Action("List", "KhuVuc")">Khu vực</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("List", "DonVi")">Đơn vị</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="#" class="sidebar-nav-menu"><i class="fa fa-chevron-left sidebar-nav-indicator sidebar-nav-mini-hide"></i> <i class="fa fa-newspaper-o"></i> <span class="sidebar-nav-mini-hide">&nbsp; Quản lý tin </span></a>
+                        <ul>
+                            <li>
+                                <a href="@Url.Action("List", "CateNews")">Danh mục</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("List", "NewsPage")">Tin tức - sự kiện</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("List", "InfoPage")">Công bố thông tin</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="#" class="sidebar-nav-menu"><i class="fa fa-chevron-left sidebar-nav-indicator sidebar-nav-mini-hide"></i> <i class="fa fa-image"></i> <span class="sidebar-nav-mini-hide">&nbsp; Quản lý hình ảnh</span></a>
+                        <ul>
+                            <li>
+                                <a href="@Url.Action("CateList", "Album")">Danh mục ảnh</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("List", "Album")">Danh sách ảnh</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="#" class="sidebar-nav-menu"><i class="fa fa-chevron-left sidebar-nav-indicator sidebar-nav-mini-hide"></i> <i class="fa fa-video-camera"></i> <span class="sidebar-nav-mini-hide">&nbsp; Quản lý video</span></a>
+                        <ul>                            
+                            <li>
+                                <a href="@Url.Action("List", "Video")">Danh sách video</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="#" class="sidebar-nav-menu"><i class="fa fa-chevron-left sidebar-nav-indicator sidebar-nav-mini-hide"></i> <i class="fa fa-certificate"></i> <span class="sidebar-nav-mini-hide">&nbsp; Quản lý hiển thị</span></a>
+                        <ul>
+                            <li>
+                                <a href="@Url.Action("List", "Config")">Cấu hình công ty</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("List", "Adv")">Slide quảng cáo</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("List", "Contact")">Thông tin liên hệ</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("List", "Link")">Quản lý liên kết website</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                   
+                }
+            </ul>
+             
+        </div>
+    </div>
+</div>
+

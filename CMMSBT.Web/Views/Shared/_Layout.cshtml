@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi">
+<head>
+    <title>@ViewBag.Title</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0" />
+    <link href="@Url.Content("~/images/eosicon.ico")" rel="shortcut icon" type="image/x-icon" />
+    @await Html.PartialAsync("~/Views/Shared/_head.cshtml")
+</head>
+<body> 
+    <div id="page-wrapper" class="page-loading">
+        <div class="preloader">
+            <div class="inner">
+                <div class="preloader-spinner themed-background hidden-lt-ie10"></div>
+                <h3 class="text-primary visible-lt-ie10"><strong>Loading..</strong></h3>
+            </div>
+        </div>
+        <div id="page-container" class="header-fixed-top sidebar-visible-lg-full enable-cookies">
+            @await Html.PartialAsync("~/Views/Shared/_sidebar.cshtml")            
+            <div id="main-container">
+                @await Html.PartialAsync("~/Views/Shared/_navbar.cshtml")               
+                <div id="page-content">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="myModalProfile" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title" id="myModalLabel"><strong>THÀNH VIÊN</strong></h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <strong><u>THÔNG TIN CÁ NHÂN:</u></strong>
+                        </div>
+                       <div class="col-md-12">
+                                <div class="clr-10"></div>
+                                Họ & tên: <strong></strong>
+                            </div>
+                                          
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-xs btn btn-danger" data-dismiss="modal"><i class="fa fa-sign-out"></i> Thoát</button>
+                </div>
+            </div>
+        </div>
+    </div>   
+    @await Html.PartialAsync("~/Views/Shared/_js.cshtml")  
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }
+</body>
+</html>

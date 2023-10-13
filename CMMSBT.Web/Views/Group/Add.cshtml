@@ -1,0 +1,308 @@
+﻿@using System.Collections
+@model CMMSBT.Domain.Group
+@{
+    ViewBag.Title = "CMMSBT > Hệ thống > Nhóm người dùng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>    
+    .error {
+        color: red;
+    }
+</style>
+<aside class="right-side">
+    <section class="content">
+        <div class="row" style="background:#fff;margin-top:-62px;">
+            <div class="col-md-12 text-center" style="background-color:dimgray;color:#fff;height:32px;line-height:32px;">
+                <strong>NHÓM NGƯỜI DÙNG</strong>
+            </div>
+            <div class="clr-5"></div>
+            @using (Html.BeginForm("Add", "Group", FormMethod.Post, new { @id = "Add", @enctype = "multipart/form-data" }))
+            {                
+                <div class="col-md-4">
+                    <input type="hidden" id="id" value="@ViewData["id"]" />
+                    <label class="control-label">Tên nhóm</label>
+                    <div class="controls">
+                        @Html.TextBoxFor(m => m.Name, "", new { @id = "Name", @class = "form-control", @placeholder = "Nhập tên nhóm" })                     
+                        <label for="Name" class="error" style="display:none;"></label>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <label class="control-label">Mô tả</label>
+                    <div class="controls">
+                        @Html.TextBoxFor(m => m.Description, "", new { @id = "Description", @class = "form-control", @placeholder = "Nhập mô tả" })
+                        <label for="Description" class="error" style="display:none;"></label>
+                    </div>
+                </div>               
+                <div class="clr-5"></div>
+                <div class="col-md-12">
+                    <label class="control-label">Phân quyền</label>                    
+                </div>
+                <div class="col-md-12">
+                    @if (ViewData["listFunction"] != null)
+                    {
+                        var emplist = ViewData["listFunction"];
+                        var list = emplist as List<CMMSBT.Domain.ListItem>;
+
+                        <table class="detailsTable table table-striped table-bordered table-vcenter" style="font-size: 12px;">
+                            <thead>
+                                <tr style="background-color:#f1f5fb;">
+                                    <th style="font-size: 12px;" class="text-center"><i class="fa fa-flash"></i></th>
+                                    <th style="font-size: 12px;" class="text-left">Tên chức năng</th>
+                                    <th style="font-size: 12px;" class="text-center">Xem</th>
+                                    <th style="font-size: 12px;" class="text-center">Thêm</th>
+                                    <th style="font-size: 12px;" class="text-center">Sửa</th>
+                                    <th style="font-size: 12px;" class="text-center">Xóa</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    int i = 0;
+                                }
+                                @foreach (var item in list!)
+                                {
+                                    i = i + 1;
+                                    <tr class="checklisttr">
+                                        <td width="5%" class="text-center">
+                                            <input id="chkFunctionId" class="chkFunctionId_@i" onclick="CheckAllInRow(this);" type="checkbox" value="@item.Value" />
+                                            <input type="hidden" name="FunctionId[@i]" class="FunctionId" value="@item.Value" />
+                                        </td>
+                                        <td class="text-left">@item.Text</td>
+                                        <td width="5%" class="text-center">
+                                            <input id="chkRead" class="chkRead_@i" onclick="UpdateRowState(this,'chkFunctionId',1);" type="checkbox" value="1" />
+                                        </td>
+                                        <td width="5%" class="text-center">
+                                            <input id="chkInsert" class="chkInsert_@i" onclick="UpdateRowState(this,'chkFunctionId',1);" type="checkbox" value="2" />
+                                        </td>
+                                        <td width="5%" class="text-center">
+                                            <input id="chkUpdate" class="chkUpdate_@i" onclick="UpdateRowState(this,'chkFunctionId',1);" type="checkbox" value="3" />
+                                        </td>
+                                        <td width="5%" class="text-center">
+                                            <input id="chkDelete" class="chkDelete_@i" onclick="UpdateRowState(this,'chkFunctionId',1);" type="checkbox" value="4" />
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                </div>
+                <div class="clr-10"></div>
+                <div class="col-md-12">
+                    <button type="button" id="btnAdd" class="btn btn-primary"><i class="fa fa-save"></i> Lưu</button>
+                </div>
+                <div class="clr-15"></div>
+            }
+        </div>
+    </section>
+</aside>
+<script>
+    $(function () {        
+
+        $("#btnAdd").click(function (e) {
+            e.preventDefault();
+            if ($("#Add").valid()) {
+
+                var Id = $("#id").val();
+                var Name = $("#Name").val();
+                var Description = $("#Description").val();
+
+                var orderArr = [];
+                var i = 0; k1 = 0; k2 = 0; k3 = 0; k4 = 0;
+
+                $.each($(".detailsTable tbody tr"), function () {
+                    i = i + 1;
+                    var check_function = $(".checklisttr > td > input.chkFunctionId_" + i);
+                    var check_read = $(".checklisttr > td > input.chkRead_" + i);
+                    var check_insert = $(".checklisttr > td > input.chkInsert_" + i);
+                    var check_update = $(".checklisttr > td > input.chkUpdate_" + i);
+                    var check_delete = $(".checklisttr > td > input.chkDelete_" + i);
+
+                    if ($(check_read).prop("checked") == true) {
+                        k1 = 1;
+                    }
+                    else {
+                        k1 = 0;
+                    }
+
+                    if ($(check_insert).prop("checked") == true) {
+                        k2 = 2;
+                    }
+                    else {
+                        k2 = 0;
+                    }
+
+                    if ($(check_update).prop("checked") == true) {
+                        k3 = 3;
+                    }
+                    else {
+                        k3 = 0;
+                    }
+                    if ($(check_delete).prop("checked") == true) {
+                        k4 = 4;
+                    }
+                    else {
+                        k4 = 0;
+                    }
+
+                    if ($(check_function).prop("checked") == true) {
+                        if (k1 > 0) {
+                            orderArr.push({
+                                FunctionId: $(this).find('td:eq(0)').find('input.FunctionId').val(),
+                                Mash: k1
+                            });
+                        }
+                        if (k2 > 0) {
+                            orderArr.push({
+                                FunctionId: $(this).find('td:eq(0)').find('input.FunctionId').val(),
+                                Mash: k2
+                            });
+                        }
+                        if (k3 > 0) {
+                            orderArr.push({
+                                FunctionId: $(this).find('td:eq(0)').find('input.FunctionId').val(),
+                                Mash: k3
+                            });
+                        }
+                        if (k4 > 0) {
+                            orderArr.push({
+                                FunctionId: $(this).find('td:eq(0)').find('input.FunctionId').val(),
+                                Mash: k4
+                            });
+                        }
+                    }
+                });
+
+                var arr1 = { Id: Id, Name: Name, Description: Description, Group :orderArr };
+                //var data = JSON.stringify({ 'listgroup': arr1,'listpermistion': orderArr });               
+
+                alert(data);
+
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("SaveAction", "Group")",
+                    data: data,
+                    dataType: 'json',
+                    success: function (da) {
+                        if (da.ResultCode == true) {
+                            window.location.href = '@Url.Action("List", "Group")';
+                        }
+                        else {
+                            alert(da.Message);
+                        }
+                    },
+                    error: function (da) {
+                        alert('Lỗi: Vui lòng hãy kiểm tra lại!');
+                    }
+
+                });
+
+                //PostPersionGroup(Id, Name, Description);
+            }
+        });
+    });
+
+    $(document).ready(function () {        
+       
+        $("#Add").validate({
+            rules: {                
+                Name: "required"  
+               
+            },
+            messages: {               
+                Name: "Trường bắt buộc"
+            }
+        });
+    });
+
+    function PostPersionGroup(Id, Name, Description) {
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("SaveAction", "Group")",
+            data: { Id: Id, Name: Name, Description: Description },
+            dataType: 'json',
+            success: function (da) {
+                if (da.ResultCode == true) {
+                    window.location.href = '@Url.Action("List", "Group")';
+                }
+                else {
+                    alert(da.Message);
+                }
+            },
+            error: function (da) {
+                alert('Lỗi: Vui lòng hãy kiểm tra lại!');
+            }
+
+        });
+    }
+
+    function SelectAll(ids, value) {
+        var frm = document.forms[0];
+        var idArr = ids.split(",");
+        for (i = 0; i < frm.elements.length; i++) {
+            for (j = 0; j < idArr.length; j++) {
+                if (frm.elements[i].type == "checkbox" && !frm.elements[i].disabled && frm.elements[i].name.indexOf(idArr[j], 0) != -1) {
+                    frm.elements[i].checked = value;
+                }
+            }
+        }
+    }
+
+    // controlId is ID of the check all checkbox that will change when check items change
+    function ChangeCheck(controlId, value, ids) {
+        if (value == true) {
+            var frm = document.forms[0];
+            var idArr = ids.split(",");
+
+            for (i = 0; i < frm.elements.length; i++) {
+                for (j = 0; j < idArr.length; j++) {
+                    if (frm.elements[i].type == "checkbox"
+                        && frm.elements[i].name.indexOf(idArr[j], 0) != -1
+                        && frm.elements[i].checked == false) {
+                        document.getElementById(controlId).checked = false;
+                        return;
+                    }
+                }
+            }
+            document.getElementById(controlId).checked = true;
+        }
+        else {
+            document.getElementById(controlId).checked = false;
+        }
+    }
+
+    // Check or uncheck all item that exist in same row of sender
+    // send der is checbox control
+    function CheckAllInRow(sender) {
+        var row = sender.parentNode.parentNode;
+        var items = row.getElementsByTagName("input");
+        for (i = 0; i < items.length; i++) {
+            if (items[i].type == "checkbox") {
+                items[i].checked = sender.checked;
+            }
+        }
+    }
+
+    // tagetId is ID of the main checkbox in row
+    // parentTier is the tier number for item to targetId's row
+    // sender is checkbox that call this function
+    function UpdateRowState(sender, targetId, parentTier) {
+        var row = sender.parentNode;
+        var checkCount = 0;
+
+        for (i = 0; i < parentTier; i++) {
+            row = row.parentNode;
+        }
+        var items = row.getElementsByTagName("input");
+
+        for (i = 0; i < items.length; i++) {
+            if (items[i].type == "checkbox" && items[i].name.indexOf(targetId, 0) == -1 && items[i].checked == true) {
+                checkCount++;
+            }
+        }
+        for (i = 0; i < items.length; i++) {
+            if (items[i].type == "checkbox" && items[i].name.indexOf(targetId, 0) != -1) {
+                items[i].checked = !(checkCount == 0);
+            }
+        }
+    }
+</script>
+

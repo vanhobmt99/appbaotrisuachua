@@ -1,0 +1,145 @@
+﻿@{
+    ViewBag.Title = "CMMSBT > Khu vực > Quản lý khu vực";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<aside class="right-side">
+    <section class="content">
+        <div class="row" style="background:#fff;margin-top:-62px;">
+            <div class="col-md-12 text-center" style="background-color:dimgray;color:#fff;height:32px;line-height:32px;">
+                <strong>QUẢN LÝ KHU VỰC</strong>&nbsp;&nbsp;
+                <a class="btn btn-xs btn-warning" title="Thêm mới" href="@Url.Action("Add","Khuvuc")/0"><i class="fa fa-plus"></i> Thêm mới</a>
+            </div>
+            <div class="clr-5"></div>
+            @using (Html.BeginForm())
+            {               
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Từ khóa:</label>
+                        <div class="input-group">
+                            <input value="@ViewBag.txtSearch" type="text" id="txtsearch" name="txtsearch" class="form-control" placeholder="Tìm theo tên khu vực..." />
+                            <span class="input-group-btn">
+                                <button type="button" id="search" class="btn btn-effect-ripple btn-primary"><i class="fa fa-search"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                
+                    <div class="clr-15"></div>
+                    <div class="col-md-12">
+                        <button type="button" id="CheckAll" class="btn-xs btn btn-default"><i class="fa fa-check-circle-o"></i> Chọn</button>
+                        <button type="button" id="UnCheckAll" class="btn-xs btn btn-default"><i class="fa fa-undo"></i> Bỏ chọn</button>
+                        <button type="button" id="delete" class="btn-xs btn btn-danger" title="Xóa"><i class="fa fa-trash-o"></i> Xóa</button>
+                    </div>
+               
+                <div class="col-md-12">
+                    <div id="loadingmessage" style="display:none; text-align: -webkit-center;">
+                        <img src="@Url.Content("~/images/loading.gif")" class="loader" style="width:100px;height:100px" />
+                    </div>
+                    <div id="CustomerData"></div>
+                </div>
+            }
+        </div>
+        <div class="clr-10"></div>
+    </section>
+</aside>
+<script>
+    $(function () {
+
+        var page = window.location.hash
+            ? window.location.hash.slice(1)
+            : 1;
+        fetchPage(page);
+
+        $('#search').click(function () {
+            fetchPage(page);
+        });
+
+        $("#delete").click(function () {
+            var check = false;
+            var selectedIDs = new Array();
+            $('input:checkbox.checkBox').each(function () {
+                if ($(this).prop('checked')) {
+                    selectedIDs.push($(this).val());
+                    check = true;
+                }
+            });
+
+            if (check == false) {
+                alert("Bạn chưa chọn item cần xóa!");
+            }
+            else if (confirm("Bạn có chắc chắn muốn xóa item này không?")) {
+                var options = {};
+                options.url = '@Url.Action("Delete","KhuVuc")';
+                options.type = "POST";
+                options.data = JSON.stringify(selectedIDs);
+                options.contentType = "application/json";
+                options.dataType = "json";
+                options.success = function (da) {
+                    if (da.ResultCode == true) {
+                        alert(da.Message);
+                    }
+                    location.reload();
+                };
+                options.error = function () {
+                    alert("Lỗi trong khi xóa dữ liệu!");
+                };
+                $.ajax(options);
+            }
+        });
+
+    });
+
+    var List = function () {
+
+        $('#CustomerData .pagination li a').each(function (i, item) {
+            var hyperLinkUrl = $(item).attr('href');
+            if (typeof hyperLinkUrl !== 'undefined' && hyperLinkUrl !== false) {
+                var pageNumber = $(item).attr('href').replace('/KhuVuc/PagedPartial?page=', '');
+                $(item).attr('href', '#').click(function (event) {
+                    event.preventDefault();
+                    $(event.target).attr('href');
+                    fetchPage(pageNumber);
+                });
+            }
+        });
+    };
+
+    var fetchPage = function (page) {
+        $('#loadingmessage').show();
+        var pagedPartialUrl = '@Url.Action("PagedPartial", "KhuVuc")';
+        var txtsearch = $('#txtsearch').val();
+        if (txtsearch != null || txtsearch != "") {
+            $.post(pagedPartialUrl, { page: page, txtsearch: txtsearch }, function (data) {
+                window.location.hash = page;
+                $('#CustomerData').html(data);
+                List();
+                $('#loadingmessage').hide();
+            });
+        } else {
+            $.post(pagedPartialUrl, { page: page }, function (data) {
+                window.location.hash = page;
+                $('#CustomerData').html(data);
+                List();
+                $('#loadingmessage').hide();
+            });
+        }
+    };
+
+    //Chức năng chọn hết
+    document.getElementById("CheckAll").onclick = function () {
+        var checkboxes = document.getElementsByName('name[]');
+        for (var i = 0; i < checkboxes.length; i++) {
+            checkboxes[i].checked = true;
+        }
+    };
+
+    //Chức năng bỏ chọn hết
+    document.getElementById("UnCheckAll").onclick = function () {
+        var checkboxes = document.getElementsByName('name[]');
+        for (var i = 0; i < checkboxes.length; i++) {
+            checkboxes[i].checked = false;
+        }
+    };
+
+</script>
+

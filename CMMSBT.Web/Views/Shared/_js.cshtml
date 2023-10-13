@@ -1,0 +1,105 @@
+﻿<script src="@Url.Content("~/js/ajax.js")"></script>
+<script src="@Url.Content("~/js/bootstrap.min-2.3.js")"></script>
+<script src="@Url.Content("~/js/plugins-2.3.js")"></script>
+<script src="@Url.Content("~/js/app-2.2.js")"></script>
+<script src="@Url.Content("~/js/formsComponents.js")"></script>
+<script src="@Url.Content("~/js/sumernote.js")"></script>
+<script src="@Url.Content("~/js/autoNumeric.js")"></script>
+<script>
+
+	$('.auto_numeric').autoNumeric('init', {
+		aSep: ',',
+		aDec: '.',
+		pSign: 's',
+		aPad: false
+    });
+
+    $('form').submit(function () {
+        $('.auto_numeric').each(function () {
+            $(this).val($(this).val().replace(/,/g, ''));
+        });
+    });    
+
+    $(function () {
+        //Cập nhật ẩn hiện
+        $(".hidde").click(function () {
+            var val = $(this).attr("data");
+            var e = $(this).parents("tr:first");
+            var id = $(this).closest("tr").find('td:eq(0)').find('input[name="id"]').val();
+            if (val == 0) {
+                $(e).removeClass("danger");
+                $(this).attr("data", "1");
+                UpdateStatus(id, 1);
+
+            } else {
+                $(e).addClass("danger");
+                $(this).attr("data", "0");
+                UpdateStatus(id, 0);
+            }
+
+        });
+    });
+    function UpdateStatus(id, val)
+    {
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("UpdateIndex", "CateNews")",
+            data: { id: id, val: val },
+            dataType: 'json',
+            success: function (da) {
+                if (da.Result == "Success") {
+                } else {
+                    alert('Error: ' + da.Message);
+                }
+            },
+            error: function (da) {
+                alert('Lỗi: Vui lòng hãy kiểm tra lại!');
+            }
+
+        });
+    }
+
+    $(document).ready(function () {
+
+        $('.summernote').summernote({
+            height: 400,
+            minHeight: null, // set minimum height of editor  
+            maxHeight: null, // set maximum height of editor  
+            focus: true,     // set focus to editable area after initializing summernote  
+            callbacks: {
+                onImageUpload: function (files) {
+                    for (let i = 0; i < files.length; i++) {
+                        UploadImage(files[i]);
+                    }
+                }
+            }
+
+        });
+
+        function UploadImage(file) {
+            var url = '@Url.Action("UploadFile", "Cate")';
+            formData = new FormData();
+            formData.append("aUploadedFile", file);
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (FileUrl) {
+                    // alert(FileUrl);  
+                    var imgNode = document.createElement('img');
+                    imgNode.src = FileUrl;
+                    $('.summernote').summernote('insertNode', imgNode);
+                },
+                error: function (data) {
+                    alert(data.responseText);
+                }
+            });
+        }
+    });
+
+</script>
+<script src="@Url.Content("~/js/bootstrap-tagsinput.min.js")"></script>
+

@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34003.232
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CMMSBT.Web", "CMMSBT.Web\CMMSBT.Web.csproj", "{ED17A02A-40DF-4E51-9B58-1BB2FD1846BD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CMMSBT.Dao", "CMMSBT.Dao\CMMSBT.Dao.csproj", "{050CA95F-9BC0-4C9E-B81F-A1154D03DF80}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CMMSBT.Domain", "CMMSBT.Domain\CMMSBT.Domain.csproj", "{2AB147BB-BECE-4138-88D1-E7EBD489C155}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CMMSBT.Util", "CMMSBT.Util\CMMSBT.Util.csproj", "{ABB006F4-FE9F-4F4A-89DB-85EDD5F3CF42}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CMMSBT.API", "CMMSBT.API\CMMSBT.API.csproj", "{C97118C2-A269-4B9A-83E5-9143BF993A32}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CMMSBT.ApiModels", "CMMSBT.ApiModels\CMMSBT.ApiModels.csproj", "{0F82F836-D043-491C-8F78-6BB4E9603A60}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ED17A02A-40DF-4E51-9B58-1BB2FD1846BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED17A02A-40DF-4E51-9B58-1BB2FD1846BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED17A02A-40DF-4E51-9B58-1BB2FD1846BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED17A02A-40DF-4E51-9B58-1BB2FD1846BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{050CA95F-9BC0-4C9E-B81F-A1154D03DF80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{050CA95F-9BC0-4C9E-B81F-A1154D03DF80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{050CA95F-9BC0-4C9E-B81F-A1154D03DF80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{050CA95F-9BC0-4C9E-B81F-A1154D03DF80}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2AB147BB-BECE-4138-88D1-E7EBD489C155}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AB147BB-BECE-4138-88D1-E7EBD489C155}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AB147BB-BECE-4138-88D1-E7EBD489C155}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AB147BB-BECE-4138-88D1-E7EBD489C155}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABB006F4-FE9F-4F4A-89DB-85EDD5F3CF42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABB006F4-FE9F-4F4A-89DB-85EDD5F3CF42}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABB006F4-FE9F-4F4A-89DB-85EDD5F3CF42}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABB006F4-FE9F-4F4A-89DB-85EDD5F3CF42}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C97118C2-A269-4B9A-83E5-9143BF993A32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C97118C2-A269-4B9A-83E5-9143BF993A32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C97118C2-A269-4B9A-83E5-9143BF993A32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C97118C2-A269-4B9A-83E5-9143BF993A32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F82F836-D043-491C-8F78-6BB4E9603A60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F82F836-D043-491C-8F78-6BB4E9603A60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F82F836-D043-491C-8F78-6BB4E9603A60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F82F836-D043-491C-8F78-6BB4E9603A60}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6CCA259D-902D-4D39-88CE-B15E3236186A}
+	EndGlobalSection
+EndGlobal

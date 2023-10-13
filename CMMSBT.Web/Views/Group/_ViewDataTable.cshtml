@@ -1,0 +1,67 @@
+@model IEnumerable<CMMSBT.Domain.Group>
+@using X.PagedList;
+@using X.PagedList.Mvc.Core;
+
+@if (Model != null && Model.Count() > 0)
+{
+    <div class="table-responsive">
+        <table id="example-datatable" class="table table-striped table-bordered table-vcenter" style="font-size: 12px;">
+            <thead>
+                <tr style="background-color: #f1f5fb;">
+                    <th style="font-size: 12px;" class="text-center">STT</th>
+                    <th style="font-size: 12px;" class="text-left">Tên nhóm</th>
+                    <th style="font-size: 12px;" class="text-center">Mô tả</th>
+                    <th style="font-size: 12px;" class="text-center">Kích hoạt</th>
+                    <th style="font-size: 12px;" class="text-center">Người tạo</th>
+                    <th style="font-size: 12px;" class="text-center">Người cập nhật</th>
+                    <td class="text-center"><i class="fa fa-flash"></i></td>
+                </tr>
+            </thead>
+            <tbody>
+                @{ int i = 0;}
+                @foreach (var item in Model)
+                {
+                    i = i + 1;
+                    <tr>
+                        <td class="padding-td-cus text-center" width="5%">
+                            @i
+                            <input type="checkbox" name="name[]" class="checkBox" value="@item.Id" />
+                            <input type="hidden" name="Makv" value="@item.Id" />
+                        </td>
+                        <td class="padding-td-cus text-left">
+                            @item.Name
+                        </td>
+                        <td class="padding-td-cus text-left">
+                            @item.Description
+                        </td>                           
+                        <td class="padding-td-cus text-center" style="width:10%">
+                           @item.Active
+                        </td>
+                        <td class="padding-td-cus text-center" style="width:12%">
+                            @item.CreateBy
+                        </td>
+                        <td class="padding-td-cus text-center" style="width:12%">
+                            @item.UpdateBy
+                        </td>
+                        <td class="padding-td-cus text-center" width="7%">
+                            <a href="@Url.Action("Add","Group", new {Id = item.Id})" title="Sửa" class="btn btn-xs btn-success"><i class="fa fa-edit"></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-12">
+        <div class="row">
+            @Html.PagedListPager((IPagedList) Model, page => Url.Action("PagedPartial", new {page = page}),
+                new X.PagedList.Web.Common.PagedListRenderOptions {
+                LiElementClasses = new string[] {"page-item"},
+                PageClasses = new string[] { "page-link" }
+             })
+        </div>
+    </div>
+}
+else
+{
+    <p class="text-danger text-center">Chưa có item nào được xác nhận</p>
+}

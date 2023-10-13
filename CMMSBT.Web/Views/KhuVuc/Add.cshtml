@@ -1,0 +1,89 @@
+﻿@using System.Collections
+@model CMMSBT.Domain.Khuvuc
+@{
+    ViewBag.Title = "CMMSBT > Khu vực > Quản lý khu vực";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>    
+    .error {
+        color: red;
+    }
+</style>
+<aside class="right-side">
+    <section class="content">
+        <div class="row" style="background:#fff;margin-top:-62px;">
+            <div class="col-md-12 text-center" style="background-color:dimgray;color:#fff;height:32px;line-height:32px;">
+                <strong>KHU VỰC</strong>
+            </div>
+            <div class="clr-5"></div>
+            @using (Html.BeginForm("Add", "KhuVuc", FormMethod.Post, new { @id = "Add", @enctype = "multipart/form-data" }))
+            {                
+                <div class="col-md-12">
+                    <input type="hidden" id="id" value="@ViewData["id"]" />
+                    <label class="control-label">Tên khu vực</label>
+                    <div class="controls">
+                        @Html.TextBoxFor(m => m.Tenkv, "", new { @id = "Tenkv", @class = "form-control", @placeholder = "Nhập tên khu vực" })                     
+                        <label for="Tenkv" class="error" style="display:none;"></label>
+                    </div>
+                </div>                
+               
+                <div class="clr-10"></div>
+                <div class="col-md-12">
+                    <button type="button" id="btnAdd" class="btn btn-primary"><i class="fa fa-pencil"></i> Cập nhật</button>
+                </div>
+                <div class="clr-15"></div>
+            }
+        </div>
+    </section>
+</aside>
+<script>
+    $(function () {        
+
+        $("#btnAdd").click(function (e) {
+            e.preventDefault();
+            if ($("#Add").valid()) {
+
+                var Makv = $("#id").val();
+                var Tenkv = $("#Tenkv").val();                
+                var ObjArr = { Makv: Makv, Tenkv: Tenkv };
+                PostKhuVuc(ObjArr);
+            }
+        });
+    });
+
+    $(document).ready(function () {        
+       
+        $("#Add").validate({
+            rules: {                
+                Tenkv: "required"  
+               
+            },
+            messages: {               
+                Tenkv: "Trường bắt buộc"
+            }
+        });
+    });
+
+    function PostKhuVuc(ObjArr) {
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("SaveAction", "KhuVuc")",
+            data: ObjArr,
+            dataType: 'json',
+            success: function (da) {
+                if (da.ResultCode == true) {
+                    window.location.href = '@Url.Action("List", "KhuVuc")';
+                }
+                else {
+                    alert(da.Message);
+                }
+            },
+            error: function (da) {
+                alert('Lỗi: Vui lòng hãy kiểm tra lại!');
+            }
+
+        });
+    }
+
+</script>
+

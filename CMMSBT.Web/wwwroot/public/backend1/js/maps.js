@@ -1,0 +1,4 @@
+function mapgoogle(address_map,id_map){var geocoder=new google.maps.Geocoder();var myOptions={zoom:16,mapTypeId:google.maps.MapTypeId.ROADMAP}
+var map=new google.maps.Map(document.getElementById(id_map),myOptions);var address=address_map;geocoder.geocode({'address':address},function(results,status){if(status==google.maps.GeocoderStatus.OK){map.setCenter(results[0].geometry.location);var marker=new google.maps.Marker({map:map,position:results[0].geometry.location});}else{}});}
+function mapgoogle2(address_map,id_map){var geocoder=new google.maps.Geocoder();var myOptions={zoom:16,mapTypeId:google.maps.MapTypeId.ROADMAP}
+var map=new google.maps.Map(document.getElementById(id_map),myOptions);var address=address_map;geocoder.geocode({'address':address},function(results,status){if(status==google.maps.GeocoderStatus.OK){map.setCenter(results[0].geometry.location);var marker=new google.maps.Marker({map:map,position:results[0].geometry.location});}else{}});}

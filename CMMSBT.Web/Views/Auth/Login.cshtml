@@ -1,0 +1,81 @@
+﻿@model CMMSBT.Domain.LoginModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Đăng nhập</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0" />
+    <link href="@Url.Content("~/images/eosicon.ico")" rel="shortcut icon" type="image/x-icon" />
+    <link rel="stylesheet" href="@Url.Content("~/css/bootstrap.min-2.3.css")">
+    <link rel="stylesheet" href="@Url.Content("~/css/plugins-2.3.css")">
+    <link rel="stylesheet" href="@Url.Content("~/css/main-2.3.css")">
+    <link rel="stylesheet" href="@Url.Content("~/css/themes-2.2.css")">
+</head>
+<body>
+    <div id="login-container">
+        <div class="block animation-fadeInQuickInv">
+            <div class="block-title">
+                <h2>Đăng nhập</h2>
+            </div>
+            <form asp-controller="Auth" asp-action="Login" method="post" id="form-login" class="form-horizontal">                
+                @if (ViewData["ValidateMessage"] != null)
+                {
+                    <p class="text-danger">@ViewData["ValidateMessage"]</p>                   
+                }
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <div class="input-group">
+                            <span class="input-group-addon" style="background-color:#f5f3f3;"><i class="fa fa-user"></i></span>
+                            <input type="text" asp-for="Username" id="username" class="form-control" placeholder="Tên đăng nhập" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <div class="input-group">
+                            <span class="input-group-addon" style="background-color:#f5f3f3;"><i class="fa fa-lock fa-lg"></i></span>
+                            <input type="password" asp-for="Password" style="border-right:none;" id="Password" class="form-control" placeholder="Mật khẩu" />
+                            <span class="input-group-addon"><i class="fa fa-eye" id="togglePassword"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <label style="font-size:12px;">
+                            <input type="checkbox" asp-for="KeepLoggedIn" /> Nhớ mật khẩu
+                        </label>                      
+                        <button type="submit" name="submit" class="btn btn-primary"><i class="fa fa-check"></i> Đăng nhập</button>
+                    </div>
+                </div>                
+            </form>
+        </div>
+    </div>
+    <script src="@Url.Content("~/js/ajax.js")"></script>
+    <script src="@Url.Content("~/js/bootstrap.min-2.3.js")"></script>
+    <script src="@Url.Content("~/js/plugins-2.3.js")"></script>
+    <script src="@Url.Content("~/js/app-2.2.js")"></script>
+    <script src="@Url.Content("~/js/formsComponents.js")"></script>
+    <script src="@Url.Content("~/js/sumernote.js")"></script>
+    <script src="@Url.Content("~/js/autoNumeric.js")"></script>
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }
+    <script>
+        const togglePassword = document.querySelector('#togglePassword');
+        const password = document.querySelector('#Password');
+        togglePassword.addEventListener('click', function (e) {
+            // toggle the type attribute
+            const type = password.getAttribute('type') === 'Password' ? 'text' : 'Password';
+            password.setAttribute('type', type);
+            // toggle the eye / eye slash icon
+            this.classList.toggle('fa-eye-slash');
+        });
+    </script>
+   
+</body>
+</html>

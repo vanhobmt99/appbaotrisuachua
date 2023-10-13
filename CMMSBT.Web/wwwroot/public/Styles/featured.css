@@ -1,0 +1,96 @@
+#featured{ 
+	width:870px; 
+	padding-right:222px; 
+	position:relative; 
+	border:3px solid #ccc; 
+	height:302px; overflow:hidden;
+	background:#fff;
+	line-height:300px;
+}
+#featured ul.ui-tabs-nav{ 
+	position:absolute; 
+	top:0; left:658px; 
+	list-style:none;   	
+	padding:0; margin:0; 
+	width:222px; height:302px;	
+}
+#featured ul.ui-tabs-nav li{ 
+	padding-left:13px;   	
+	font-size:14px; 
+	color:#666; 	
+}
+#featured ul.ui-tabs-nav li img{ 
+	float:left; margin:2px 5px; 
+	background:#fff; 
+	padding:2px; 
+	border:0px solid #eee;
+}
+#featured ul.ui-tabs-nav li span{ 
+	font-size:14px;
+	line-height:18px;
+    margin:10px 30px 0px 0px;		
+}
+#featured li.ui-tabs-nav-item a{ 
+    border-bottom:dotted 1px #0d5399;
+	border-bottom: last-child:dotted 1px #0d5399;
+	display:block;
+	vertical-align:middle;
+	padding-top:10px;
+    padding-left:5px;
+    padding-right:5px;  	
+	height:59px; text-decoration:none;
+	color:#333333;  background:#f2f2f2; 
+	line-height:17px; outline:none;
+}
+#featured li.ui-tabs-nav-item a:hover{ 
+	background:#f2f2f2;    	
+}
+#featured li.ui-tabs-selected, #featured li.ui-tabs-active{ 
+	background:url('http://sieuthidonghe.com/public/images/selected-item.gif') top left no-repeat;  	
+}
+#featured ul.ui-tabs-nav li.ui-tabs-selected a, #featured ul.ui-tabs-nav li.ui-tabs-active a{ 
+	background:#e3e6e8; 
+}
+#featured .ui-tabs-panel{ 
+	width:660px; height:300px; 
+	background:#999; position:relative;	
+}
+#featured .ui-tabs-panel .info{ 	
+	width:660px;
+	height:100px; 
+	background: url('http://tincongnghiep.com/public/images/transparent-bg.png'); 	
+	position: absolute; bottom:0; left: 0; 
+	
+}
+#featured .ui-tabs-panel .info a.hideshow{
+	position:absolute; color:#f0f0f0; right:10px; top:-20px; line-height:20px; margin:0; outline:none; background:#333;
+}
+#featured .info h2{ 
+	font-size:14px;
+	color:#fff; 
+	padding:10px; 
+	margin:0; 
+	font-weight:normal;
+	overflow:hidden;
+    height:40px;	
+}
+#featured .info p{ 
+	margin:0 5px; 
+	font-size:13px; 
+	line-height:18px; 
+	color:#f0f0f0;
+	padding:5px;
+}
+#featured .info a{ 
+	text-decoration:none; 
+	color:yellow;
+	font-size:13px;
+}
+#featured .info a:hover{ 
+	text-decoration:none;
+    color:red;	
+	font-size:13px;
+}
+#featured .ui-tabs-hide{ 
+	display:none; 
+}

@@ -1,0 +1,61 @@
+﻿.clr-5{
+    clear:both;
+    height:5px;
+}
+.clr-10 {
+    clear: both;
+    height: 10px;
+}
+.clr-15 {
+    clear: both;
+    height: 15px;
+}
+.clr-20 {
+    clear: both;
+    height: 20px;
+}
+.clr-25 {
+    clear: both;
+    height: 25px;
+}
+.bg-table-cus {
+    background-color: #337ab7;
+    color: white;
+    font-size: 12px;
+}
+
+.font-size-tr-cus {
+    font-size: 12px;
+}
+
+.padding-td-cus {
+    vertical-align: middle;
+    padding: 5px;
+}
+#loadingImg {
+    display: none;
+}
+.submit-progress-bg {
+    background-color: lightgray;
+    opacity: .5;
+}
+#progressbar-5 {
+    width: 100%;
+    height: 10px;      
+}
+
+.progress-label {
+    width: 100%;
+    height: 15px;    
+    position: absolute;
+    text-align: left;
+    font-size: small;
+}
+.red {
+    color: red;
+}
+.text-color-lable {
+    font-weight:normal;
+    color: #51749a;
+}
+

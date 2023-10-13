@@ -1,0 +1,19 @@
+﻿@media (min-width: 992px) {
+    .margin_index_content_news {
+        margin-left: -30px;
+        margin-right: -30px;
+    }
+    .margin_left_content_news {
+        margin-left: -30px;
+    }
+    #margin_top_slide {
+        margin-top: -16px;
+    }
+    #height_fix_img{
+        height: 100px;
+    }
+    #height_fix_img_video {
+        height: 200px;
+    }  
+}
+
