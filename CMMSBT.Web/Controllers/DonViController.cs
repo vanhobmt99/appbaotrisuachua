@@ -1,5 +1,4 @@
-﻿using CMMSBT.ApiModels;
-using CMMSBT.Dao;
+﻿using CMMSBT.Dao;
 using CMMSBT.Domain;
 using CMMSBT.Util;
 using Microsoft.AspNetCore.Authorization;
@@ -33,6 +32,7 @@ namespace CMMSBT.Web.Controllers
         [HttpGet]
         public IActionResult List()
         {
+            ViewBag.Name = "Add";
             return View();
         }
 
@@ -60,39 +60,130 @@ namespace CMMSBT.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Add(int MaDv)
+        public async Task<IActionResult> Add(int Id)
         {
             ViewData["id"] = 0;
-            if (MaDv > 0)
+            if (Id > 0)
             {
-                var dv = await _donviDao.Get(MaDv);
-                if (dv != null)
+                var kv = await _donviDao.Get(Id);
+                if (kv != null)
                 {
-                    ViewData["id"] = dv.Madv;
+                    ViewData["id"] = kv.Madv;
                 }
-                return View(dv);
+                return View(kv);
             }
             else
             {
                 return View();
             }
+        }
 
+        public IActionResult Create(Donvi dv)
+        {
+            AddUpdateDeleteGroup(dv, "Insert");
+            return RedirectToAction("List");
+        }
+        public IActionResult Update(Donvi dv)
+        {
+            ViewBag.Name = "Add";
+            AddUpdateDeleteGroup(dv, "Update");
+            return RedirectToAction("List");
         }
 
         [HttpPost]
-        public async Task<IActionResult> SaveAction(DonViModel model)
+        public IActionResult Add()
         {
-            _client.DefaultRequestHeaders.Accept.Clear();
-            _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            var response = await _client.PostAsJsonAsync(SystemConstants.AppSettings.BaseAddress + "/DonVi/AddUpdate", model);
-            //var list = _donviDao.PostDonVi(model);
-            if (response.IsSuccessStatusCode)
+            ViewBag.Name = "Add";
+            Donvi dv = new Donvi();
+            return PartialView("_InsertUpdatePartial", dv);
+        }
+
+        [HttpPost]
+        public IActionResult Edit([FromBody] Donvi model)
+        {
+            int id = Convert.ToInt32(model.Madv);
+            ViewBag.Name = "Update";
+            Donvi dv = new Donvi();
+            dv.Madv = id;
+            dv.Tendonvi = _donviDao.GetLists(id).FirstOrDefault()!.Tendonvi;
+            dv.Tengiayto = _donviDao.GetLists(id).FirstOrDefault()!.Tengiayto;
+            dv.Diachi = _donviDao.GetLists(id).FirstOrDefault()!.Diachi;
+            dv.Dienthoai = _donviDao.GetLists(id).FirstOrDefault()!.Dienthoai;
+            dv.Fax = _donviDao.GetLists(id).FirstOrDefault()!.Fax;
+            dv.Website = _donviDao.GetLists(id).FirstOrDefault()!.Website;
+            dv.Masothue = _donviDao.GetLists(id).FirstOrDefault()!.Masothue;
+            dv.Nganhang = _donviDao.GetLists(id).FirstOrDefault()!.Nganhang;
+            dv.Tengiamdoc = _donviDao.GetLists(id).FirstOrDefault()!.Tengiamdoc;
+            dv.Phogiamdoc = _donviDao.GetLists(id).FirstOrDefault()!.Phogiamdoc;
+            dv.Phongkinhdoanh = _donviDao.GetLists(id).FirstOrDefault()!.Phongkinhdoanh;
+            dv.Phonghoadon = _donviDao.GetLists(id).FirstOrDefault()!.Phonghoadon;
+            dv.Email = _donviDao.GetLists(id).FirstOrDefault()!.Email;
+            dv.So = _donviDao.GetLists(id).FirstOrDefault()!.So;
+            dv.Phongqlmang = _donviDao.GetLists(id).FirstOrDefault()!.Phongqlmang;
+            dv.Sotaikhoan = _donviDao.GetLists(id).FirstOrDefault()!.Sotaikhoan;
+            dv.Phongketoan = _donviDao.GetLists(id).FirstOrDefault()!.Phongketoan;
+            dv.Tenbaocao = _donviDao.GetLists(id).FirstOrDefault()!.Tenbaocao;
+            dv.Vitribaocao = _donviDao.GetLists(id).FirstOrDefault()!.Vitribaocao;
+            return PartialView("_InsertUpdatePartial", dv);
+        }
+
+        public void AddUpdateDeleteGroup(Donvi model, string action)
+        {
+            if (action == "Insert")
             {
-                return Ok(new { ResultCode = true, Message = "Cập nhật thành công!" });
+                var objDb = new Donvi
+                {
+                    Tendonvi = model.Tendonvi,
+                    Tengiayto = model.Tengiayto,
+                    Diachi = model.Diachi,
+                    Dienthoai = model.Dienthoai,
+                    Fax = model.Fax,
+                    Website = model.Website,
+                    Masothue = model.Masothue,
+                    Nganhang = model.Nganhang,
+                    Tengiamdoc = model.Tengiamdoc,
+                    Phogiamdoc = model.Phogiamdoc,
+                    Phongkinhdoanh = model.Phongkinhdoanh,
+                    Phonghoadon = model.Phonghoadon,
+                    Email = model.Email,
+                    So = model.So,
+                    Phongqlmang = model.Phongqlmang,
+                    Sotaikhoan = model.Sotaikhoan,
+                    Phongketoan = model.Phongketoan,
+                    Tenbaocao = model.Tenbaocao,
+                    Vitribaocao = model.Vitribaocao
+                };
+                _context.Donvis.Add(objDb);
+                _context.SaveChangesAsync();
             }
-            else
+            else if (action == "Update")
             {
-                return Ok(new { ResultCode = false, Message = "Lỗi vui lòng hãy kiểm tra lại" });
+                var objDb = _donviDao.GetLists(model.Madv).SingleOrDefault();
+                if (objDb != null)
+                {
+                    objDb.Tendonvi = model.Tendonvi;
+                    objDb.Tengiayto = model.Tengiayto;
+                    objDb.Diachi = model.Diachi;
+                    objDb.Dienthoai = model.Dienthoai;
+                    objDb.Fax = model.Fax;
+                    objDb.Website = model.Website;
+                    objDb.Masothue = model.Masothue;
+                    objDb.Nganhang = model.Nganhang;
+                    objDb.Tengiamdoc = model.Tengiamdoc;
+                    objDb.Phogiamdoc = model.Phogiamdoc;
+                    objDb.Phongkinhdoanh = model.Phongkinhdoanh;
+                    objDb.Phonghoadon = model.Phonghoadon;
+                    objDb.Email = model.Email;
+                    objDb.So = model.So;
+                    objDb.Phongqlmang = model.Phongqlmang;
+                    objDb.Sotaikhoan = model.Sotaikhoan;
+                    objDb.Phongketoan = model.Phongketoan;
+                    objDb.Tenbaocao = model.Tenbaocao;
+                    objDb.Vitribaocao = model.Vitribaocao;
+
+                    _context.Donvis.Update(objDb);
+                    _context.SaveChangesAsync();
+                }
             }
 
         }

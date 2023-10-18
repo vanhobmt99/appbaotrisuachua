@@ -1,9 +1,6 @@
 ﻿@using System.Collections
 @model CMMSBT.Domain.Donvi
-@{
-    ViewBag.Title = "CMMSBT > Khu vực > Quản lý khu vực";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+
 <style>
     .error {
         color: red;
@@ -16,10 +13,15 @@
                 <strong>KHU VỰC</strong>
             </div>
             <div class="clr-5"></div>
-            @using (Html.BeginForm("Add", "DonVi", FormMethod.Post, new { @id = "Add", @enctype = "multipart/form-data" }))
-            {
+            <form asp-action="Create" asp-controller="DonVi" id="Create">           
                 <div class="col-md-6">
-                    <input type="hidden" id="id" value="@ViewData["id"]"  />
+                    @if (ViewBag.Name != "Add")
+                    {
+                        <div class="form-group">
+                            <label class="control-label">Mã nhóm</label>
+                            <input asp-for="Madv" class="form-control" readonly="readonly" />
+                        </div>
+                    }
                     <label class="control-label">Tên đơn vị</label>
                     <div class="controls">
                         @Html.TextBoxFor(m => m.Tendonvi, "", new { @id = "Tendonvi", @class = "form-control", @placeholder = "Nhập tên đơn vị" })
@@ -125,82 +127,30 @@
                         @Html.TextBoxFor(m => m.Vitribaocao, "", new { @id = "Vitribaocao", @class = "form-control", @placeholder = " Nhập trí báo cáo " })
                         <label for="Vitribaocao" class="error" style="display:none;"></label>
                     </div>
-                </div>
-               
+                </div>              
 
                 <div class="clr-10"></div>
                 <div class="col-md-12">
                     <a class="btn  btn-success" title="Quay lại" href="@Url.Action("List","DonVi")">Quay Lại</a>
-                    <button type="button" id="btnAdd" class="btn btn-primary"><i class="fa fa-pencil"></i> Cập nhật</button>
-                  
-
+                    @if (ViewBag.Name == "Add")
+                    {
+                        <button type="submit" class="btn btn-success btn-sm" asp-action="Create"><i class="fa fa-pencil-square"></i> Thêm</button>
+                    }
+                    else
+                    {
+                        <button type="submit" class="btn btn-success btn-sm" asp-action="Update"><i class="fa fa-pencil-square-o"></i> Cập nhật</button>
+                    }
                 </div>
                 <div class="clr-15"></div>
-            }
+            </form>
         </div>
     </section>
 </aside>
 <script>
-    $(function () {
-
-        $("#btnAdd").click(function (e) {
-            e.preventDefault();
-            if ($("#Add").valid()) {
-
-                var Madv = $("#id").val();
-                var Tendonvi = $("#Tendonvi").val();
-                var Diachi = $("#Diachi").val();
-                var Tengiayto = $("#Tengiayto").val();
-                var Dienthoai = $("#Dienthoai").val();
-                var Dienthoai = $("#Dienthoai").val();
-                var Fax = $("#Fax").val();
-                var Website = $("#Website").val();
-                var Masothue = $("#Masothue").val();
-                var Masothue = $("#Masothue").val();
-                var Nganhang = $("#Nganhang").val();
-                var Tengiamdoc = $("#Tengiamdoc").val();
-                var Phogiamdoc = $("#Phogiamdoc").val();
-                var Phongkinhdoanh = $("#Phongkinhdoanh").val();
-                var Phonghoadon = $("#Phonghoadon").val();
-                var Email = $("#Email").val();
-                var So = $("#So").val();
-                var Phongqlmang = $("#Phongqlmang").val();
-                var Sotaikhoan = $("#Sotaikhoan").val();
-                var Phongketoan = $("#Phongketoan").val();
-                var Tenbaocao = $("#Tenbaocao").val();
-                var Vitribaocao = $("#Vitribaocao").val();
-
-                var ObjArr = {
-                    Madv : Madv,
-                    Tendonvi: Tendonvi,
-                    Diachi: Diachi,
-                    Tengiayto: Tengiayto,
-                    Dienthoai: Dienthoai,
-                    Fax: Fax,
-                    Website: Website,
-                    Masothue: Masothue,
-                    Nganhang: Nganhang,
-                    Tengiamdoc: Tengiamdoc,
-                    Phogiamdoc: Phogiamdoc,
-                    Phongkinhdoanh: Phongkinhdoanh,
-                    Phonghoadon: Phonghoadon,
-                    Email: Email,
-                    So: So,
-                    Phongqlmang: Phongqlmang,
-                    Sotaikhoan: Sotaikhoan,
-                    Phongketoan: Phongketoan,
-                    Tenbaocao: Tenbaocao,
-                    Vitribaocao: Vitribaocao
-                };
-                PostKhuVuc(ObjArr);
-              
-            }
-        });
-    });
 
     $(document).ready(function () {
 
-        $("#Add").validate({
+        $("#Create").validate({
             rules: {
                 Tendonvi: "required"
 
@@ -210,27 +160,5 @@
             }
         });
     });
-
-    function PostKhuVuc(ObjArr) {
-        $.ajax({
-            type: "POST",
-            url: "@Url.Action("SaveAction", "DonVi")",
-            data: ObjArr,
-            dataType: 'json',
-            success: function (da) {
-                if (da.ResultCode == true) {
-                    window.location.href = '@Url.Action("List", "DonVi")';
-                }
-                else {
-                    alert(da.Message);
-                }
-            },
-            error: function (da) {
-                alert('Lỗi: Vui lòng hãy kiểm tra lại!');
-            }
-
-        });
-    }
-
 </script>
 

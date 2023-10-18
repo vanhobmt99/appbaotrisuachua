@@ -2,6 +2,8 @@
 @using X.PagedList;
 @using X.PagedList.Mvc.Core;
 
+
+
 @if (Model != null && Model.Any())
 {
     <div class="table-responsive">
@@ -22,6 +24,7 @@
                 @foreach (var item in Model)
                 {
                     i = i + 1;
+                    string idEdit = "btnEdit" + item.Madv.ToString();
                     <tr>
                         <td class="padding-td-cus text-center" width="5%">
                             @i
@@ -39,11 +42,32 @@
                         </td>
                         <td class="padding-td-cus text-left">
                             @item.Dienthoai
-                        </td>
-
-                     
+                        </td>                     
                         <td class="padding-td-cus text-center" width="7%">
-                            <a href="@Url.Action("Add", "DonVi", new { Madv = item.Madv })" title="Sửa" class="btn btn-xs btn-success"><i class="fa fa-edit"></i></a>
+                            <a href="#" id="@idEdit" class="btn btn-primary btn-xs" data-id="@item.Madv" title="Sửa"><i class="fa fa-edit"></i></a>
+                            <script>
+                                $(function () {
+
+                                    $("#@idEdit").click(function () {
+                                        $("#MyPopup").modal("hide");
+                                        var obj = {};
+                                        obj.Madv = $(this).attr('data-id');
+
+                                        $.ajax({
+                                            url: '@Url.Action("Edit", "DonVi")',
+                                            data: JSON.stringify(obj),
+                                            type: 'POST',
+                                            dataType: 'html',
+                                            contentType: "application/json; charset=utf-8",
+                                            success: function (response) {
+                                                $("#dvPartial").html(response);
+                                                $("#MyPopup").modal("show");
+                                            }
+                                        });
+                                    });
+
+                                });
+                            </script>
                         </td>
                     </tr>
                 }
@@ -66,4 +90,4 @@ else
     <p class="text-danger text-center">Chưa có item nào được xác nhận</p>
 }
 
-</script>
+

@@ -7,7 +7,7 @@
         <div class="row" style="background:#fff;margin-top:-62px;">
             <div class="col-md-12 text-center" style="background-color:dimgray;color:#fff;height:32px;line-height:32px;">
                 <strong>QUẢN LÝ ĐƠN VỊ</strong>&nbsp;&nbsp;
-                <a class="btn btn-xs btn-warning" title="Thêm mới" href="@Url.Action("Add","DonVi")/0"><i class="fa fa-plus"></i> Thêm mới</a>
+                <a class="btn btn-xs btn-warning" title="Thêm mới" id="btnAdd"><i class="fa fa-plus"></i> Thêm mới</a>
             </div>
             <div class="clr-5"></div>
             @using (Html.BeginForm())
@@ -42,6 +42,29 @@
         <div class="clr-10"></div>
     </section>
 </aside>
+
+<div id="MyPopup" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    &times;
+                </button>
+                <h4 class="modal-title" style="color:#000;">Nhóm Đơn Vị</h4>
+            </div>
+            <div class="modal-body">
+                <div id="dvPartial"></div>
+            </div>
+            <div class="modal-footer">
+                <input type="button" id="btnClosePopup" value="Close" data-dismiss="modal" class="btn btn-danger" />
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
 <script>
     $(function () {
 
@@ -140,6 +163,22 @@
             checkboxes[i].checked = false;
         }
     };
+
+
+    $("#btnAdd").click(function () {
+        $("#MyPopup").modal("hide");
+        $.ajax({
+            url: '@Url.Action("Add", "DonVi")',
+            data: {},
+            type: 'POST',
+            dataType: 'html',
+            contentType: "application/json; charset=utf-8",
+            success: function (response) {
+                $("#dvPartial").html(response);
+                $("#MyPopup").modal("show");
+            }
+        });
+    });
 
 </script>
 

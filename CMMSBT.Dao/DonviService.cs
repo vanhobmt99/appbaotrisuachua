@@ -9,6 +9,7 @@ namespace CMMSBT.Dao
     {
         Task<Donvi?> Get(int ma);
         Task<List<Donvi>> GetList(string? keyword);
+        List<Donvi> GetLists(int? id);
         Task<ApiResult<bool>> PostDonVi(DonViModel model);
         Task<bool> IsInUse(int ma);
         Task<ApiResult<bool>> Delete(int[] OrderIDs);
@@ -37,7 +38,15 @@ namespace CMMSBT.Dao
 
             return await data.OrderBy(p => p.Tendonvi).ToListAsync();
         }
-
+        public List<Donvi> GetLists(int? id)
+        {
+            var data = _db.Donvis.AsNoTracking();
+            if (id > 0)
+            {
+                data = data.Where(s => s.Madv.Equals(id));
+            }
+            return data.OrderBy(p => p.Madv).ToList();
+        }
 
         public async Task<ApiResult<bool>> PostDonVi(DonViModel model)
         {
