@@ -80,13 +80,13 @@ namespace CMMSBT.Web.Controllers
 
         public IActionResult Create(Donvi dv)
         {
-            AddUpdateDeleteGroup(dv, "Insert");
+            AddUpdateInsert(dv, "Insert");
             return RedirectToAction("List");
         }
         public IActionResult Update(Donvi dv)
         {
             ViewBag.Name = "Add";
-            AddUpdateDeleteGroup(dv, "Update");
+            AddUpdateInsert(dv, "Update");
             return RedirectToAction("List");
         }
 
@@ -127,7 +127,7 @@ namespace CMMSBT.Web.Controllers
             return PartialView("_InsertUpdatePartial", dv);
         }
 
-        public void AddUpdateDeleteGroup(Donvi model, string action)
+        public void AddUpdateInsert(Donvi model, string action)
         {
             if (action == "Insert")
             {
